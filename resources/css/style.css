@@ -1,0 +1,50 @@
+body{
+    margin:auto;
+    background: #D6EAF8;
+    font-family:sans-serif;
+    color: grey;
+  }
+  
+  
+  .container {
+    margin: 50px;
+  }
+  
+  table.listing {
+      border-spacing: 0px;
+      width: 80%;
+      border: 1px solid grey;
+  }
+  
+  table.listing th, table.listing td {
+      border: 1px solid grey;
+      height: 30px;
+      padding: 5px;
+  }
+  
+  input, select {
+    padding: 6px;
+    display:block;
+    margin: 5px;
+  }
+  
+  .navigation {
+  
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    background: deepskyblue;
+  }
+  
+  .navigation a {
+    text-decoration: none;
+    display: block;
+    padding: 1em;
+    color: white;
+  }
+   
+  .navigation a:hover {
+    background: #1565C0;
+  }
