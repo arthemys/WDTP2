@@ -8,10 +8,10 @@
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-    <ul class="navigation">
+    <!-- <ul class="navigation">
       <li><a href="?module=user&action=index">Lister les utilisateurs</a></li>
       <li><a href="?module=user&action=create">Saisir un utilisateur</a></li>
-    </ul>
+    </ul> -->
     <nav class="navigation">
         <a href="#">Connection</a>
         <a href="#">Déconnection</a>
