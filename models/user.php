@@ -27,11 +27,10 @@ function user_model_authentification($login){
     //3 verifier le mot de passe
         $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
         $dbpassword = $user['password'];
-        if($password === $dbpassword){
-    //    if(password_verify($password, $dbpassword)){
+        if(password_verify($password, $dbpassword)){
         // 4 creer la session
-        user_model_session($user);
-        header("Location: index.php");
+            user_model_session($user);
+            header("Location: index.php");
         }
         else{
             return $erreurPassword;
@@ -62,45 +61,62 @@ function user_model_registerValidation($user){
     $erreur = false;
     $msgErreur = [];
     foreach($user as $key=>$value){
-        $$key = mysqli_real_escape_string($con,$value);
         if($key == 'nom' && (strlen($value)<2 || strlen($value)>20 )){
             $msgErreur['erreurNom']= "Le nom doit etre entre 2 et 25 charactères";
             $erreur = true;
-        }elseif($key == 'username' && (!filter_var($value, FILTER_VALIDATE_EMAIL))){
-            $msgErreur["erreurUsername"]= "username doit etre un courriel valide";
-            $erreur = true;
+        }elseif($key == 'username'){
+            $value = mysqli_real_escape_string($con,$value); 
+            $sql = "SELECT * FROM USERWDTP2 WHERE username = '$value'";
+            $result = mysqli_query($con, $sql);
+            $count = mysqli_num_rows($result);
+            if($count > 0){
+                $msgErreur["erreurUsername"] = "Il y a déjà un utilisateur avec ce courriel";
+                $erreur = true;
+            }
+
+            if(!filter_var($value, FILTER_VALIDATE_EMAIL)){
+                $msgErreur["erreurUsername"]= "username doit etre un courriel valide";
+                $erreur = true;
+            }
         }elseif($key == 'password' && (strlen($value)<6 || strlen($value)>20 )){
             $msgErreur["erreurPassword"]= "Le mot de passe doit etre entre 6 et 20 charactères";
             $erreur = true;
-        }elseif($key == 'dateNaissance' && empty($key)){
-            $msgErreur["erreurDateNaissance"]= "Veuillez entrer une date de naissance";
-            $erreur = true;
+        }elseif($key == 'dateNaissance'){
+            $date = date_create_from_format("Y-m-d", $value);
+            if(!$date){
+                $msgErreur["erreurDateNaissance"]= "Veuillez entrer une date de naissance";
+                $erreur = true;
+            }
         }
     }
     if($erreur){
         $user = array_merge($user, $msgErreur);
         return $user;
     }
+    else{
+        user_model_insert($user);
+        user_model_authentification($user);
+    }
 }
 
-
-
-
-
-
-
-
-
-function user_model_insert($request){
+function user_model_insert($user){
     require(CONNEX_DIR);
-    foreach($request as $key=>$value){
+    foreach($user as $key=>$value){
         $$key=mysqli_real_escape_string($con,$value);
     }
     $password = password_hash($password, PASSWORD_BCRYPT);
-    $sql = "INSERT INTO user (name, email, birthday, username, password, userCityId) VALUES ('$name','$email','$birthday','$username','$password','$userCityId')";
+    $sql = "INSERT INTO USERWDTP2 VALUES (null, '$username','$password','$nom','$dateNaissance')";
     mysqli_query($con, $sql);
     mysqli_close($con);
 }
+
+
+
+
+
+
+
+
 
 function user_model_view($request){
     require(CONNEX_DIR);
