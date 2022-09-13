@@ -1,20 +1,54 @@
 <?php
 
-
-
-
-
-
-
-
 function user_model_list(){
     require(CONNEX_DIR);
-    $sql = "SELECT * FROM userWDTP2";
+    $sql = "SELECT 'id', 'nom' FROM userWDTP2";
     $result = mysqli_query($con, $sql);
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
     mysqli_close($con);
     return $result;
 }
+
+function user_model_authentification($login){
+    session_start();
+
+    require(CONNEX_DIR);
+    foreach($login as $key=>$value){
+        $$key=mysqli_real_escape_string($con,$value);
+    }
+    $sql = "SELECT * FROM USERWDTP2 WHERE username = '$username'";
+
+    $result = mysqli_query($con, $sql);
+
+    //2 compter == 1
+    $count = mysqli_num_rows($result);
+    if($count===1){
+    //3 verifier le mot de passe
+        $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        $dbpassword = $user['password'];
+        if($password === $dbpassword){
+    //    if(password_verify($password, $dbpassword)){
+        // 4 creer la session
+        header("Location: index.php");
+        }
+        else{
+            return "Mauvais mot de passe";
+        }   
+    }
+    else{
+        return "Vérifier votre nom d'utilisateur";
+    }
+
+}
+
+
+
+
+
+
+
+
 
 function user_model_insert($request){
     require(CONNEX_DIR);

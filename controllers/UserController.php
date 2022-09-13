@@ -1,5 +1,16 @@
 <?php
 
+function user_controller_connect(){
+    render(VIEW_DIR.'/user/connect.php');
+}
+
+function user_controller_authentification(){
+    require(MODEL_DIR.'/user.php');
+    $msg = user_model_authentification($_POST);
+    render(VIEW_DIR.'/user/connect.php', $msg);
+}
+
+
 // function user_controller_index(){
 //     require(MODEL_DIR.'/user.php');
 //     $data = user_model_list();

@@ -13,9 +13,10 @@
       <li><a href="?module=user&action=create">Saisir un utilisateur</a></li>
     </ul> -->
     <nav class="navigation">
-        <a href="#">Connection</a>
+        <a href="?module=user&action=connect">Connection</a>
         <a href="#">Déconnection</a>
     </nav>
+    <?php if(isset($_SESSION)){echo "yo";} ?>
     <div class="container">
         <?php echo $content; ?>
     </div>
