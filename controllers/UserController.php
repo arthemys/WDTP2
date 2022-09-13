@@ -14,6 +14,14 @@ function user_controller_deconnection(){
     require(MODEL_DIR.'/user.php');
     user_model_deconnection();
 }
+function user_controller_register(){
+    render(VIEW_DIR.'/user/register.php');
+}
+function user_controller_registerValidation(){
+    require(MODEL_DIR.'/user.php');
+    $erreur = user_model_registerValidation($_POST);
+    render(VIEW_DIR.'/user/register.php', $erreur);
+}
 
 
 // function user_controller_index(){

@@ -51,11 +51,36 @@ function user_model_deconnection(){
     
 }
 
-
 function user_model_session($user){
     session_start();
     $_SESSION['nom'] = $user['nom'];
     $_SESSION['fingerPrint'] =md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
+}
+
+function user_model_registerValidation($user){
+    require(CONNEX_DIR);
+    $erreur = false;
+    $msgErreur = [];
+    foreach($user as $key=>$value){
+        $$key = mysqli_real_escape_string($con,$value);
+        if($key == 'nom' && (strlen($value)<2 || strlen($value)>20 )){
+            $msgErreur['erreurNom']= "Le nom doit etre entre 2 et 25 charactères";
+            $erreur = true;
+        }elseif($key == 'username' && (!filter_var($value, FILTER_VALIDATE_EMAIL))){
+            $msgErreur["erreurUsername"]= "username doit etre un courriel valide";
+            $erreur = true;
+        }elseif($key == 'password' && (strlen($value)<6 || strlen($value)>20 )){
+            $msgErreur["erreurPassword"]= "Le mot de passe doit etre entre 6 et 20 charactères";
+            $erreur = true;
+        }elseif($key == 'dateNaissance' && empty($key)){
+            $msgErreur["erreurDateNaissance"]= "Veuillez entrer une date de naissance";
+            $erreur = true;
+        }
+    }
+    if($erreur){
+        $user = array_merge($user, $msgErreur);
+        return $user;
+    }
 }
 
 
