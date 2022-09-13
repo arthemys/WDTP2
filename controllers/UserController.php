@@ -10,6 +10,11 @@ function user_controller_authentification(){
     render(VIEW_DIR.'/user/connect.php', $msg);
 }
 
+function user_controller_deconnection(){
+    require(MODEL_DIR.'/user.php');
+    user_model_deconnection();
+}
+
 
 // function user_controller_index(){
 //     require(MODEL_DIR.'/user.php');

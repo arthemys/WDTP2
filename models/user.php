@@ -10,9 +10,10 @@ function user_model_list(){
 }
 
 function user_model_authentification($login){
-    session_start();
-
     require(CONNEX_DIR);
+    $erreurUsername = "Vérifier votre nom d'utilisateur";
+    $erreurPassword = "Mauvais mot de passe";
+
     foreach($login as $key=>$value){
         $$key=mysqli_real_escape_string($con,$value);
     }
@@ -25,21 +26,36 @@ function user_model_authentification($login){
     if($count===1){
     //3 verifier le mot de passe
         $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
         $dbpassword = $user['password'];
         if($password === $dbpassword){
     //    if(password_verify($password, $dbpassword)){
         // 4 creer la session
+        user_model_session($user);
         header("Location: index.php");
         }
         else{
-            return "Mauvais mot de passe";
+            return $erreurPassword;
         }   
     }
     else{
-        return "Vérifier votre nom d'utilisateur";
+        return $erreurUsername;
     }
 
+}
+
+function user_model_deconnection(){
+    session_start();
+    session_destroy();
+    header("Location: index.php");
+
+    
+}
+
+
+function user_model_session($user){
+    session_start();
+    $_SESSION['nom'] = $user['nom'];
+    $_SESSION['fingerPrint'] =md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
 }
 
 

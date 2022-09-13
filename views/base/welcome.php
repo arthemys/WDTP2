@@ -1,4 +1,5 @@
 <?php
+    session_start();
     foreach($data as $article){
         ?>
         <article>
