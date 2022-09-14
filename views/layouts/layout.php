@@ -18,7 +18,7 @@
         ?>
             Bonjour, <?= $_SESSION["nom"] ?>
             <a href="?module=user&action=deconnection">Déconnection</a>
-            <a href="#">Créer une publication</a>
+            <a href="?module=forum&action=create">Créer une publication</a>
         <?php
         }
         else{

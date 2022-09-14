@@ -53,6 +53,7 @@ function user_model_deconnection(){
 function user_model_session($user){
     session_start();
     $_SESSION['nom'] = $user['nom'];
+    $_SESSION['id'] = $user['id'];
     $_SESSION['fingerPrint'] =md5($_SERVER['HTTP_USER_AGENT'].$_SERVER['REMOTE_ADDR']);
 }
 
