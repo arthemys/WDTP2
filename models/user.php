@@ -111,25 +111,28 @@ function user_model_insert($user){
     mysqli_close($con);
 }
 
-
-
-
-
-
-
-
-
-function user_model_view($request){
+function user_model_view($id){
     require(CONNEX_DIR);
-    foreach($request as $key=>$value){
-        $$key=mysqli_real_escape_string($con,$value);
-    }
-    $sql = "SELECT * FROM user WHERE userId = '$id'";
+    $id = mysqli_real_escape_string($con,$id);
+    $sql = "SELECT forumWDTP2.id, titre, date, userId, nom FROM forumWDTP2 INNER JOIN userWDTP2 ON userId = userWDTP2.id WHERE userWDTP2.id = $id";
     $result = mysqli_query($con, $sql);
-    $result = mysqli_fetch_assoc($result);
-    mysqli_close($con);
-    return $result;
+    $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    if(count($result) !==0){
+        // print_r($result);
+        return $result;
+    }
+    else{
+        header("Location: index.php");
+    }
 }
+
+
+
+
+
+
+
+
 
 function user_model_edit($request){
     require(CONNEX_DIR);

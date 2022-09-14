@@ -1,29 +1,18 @@
-<form action="index.php?module=user&action=edit" method="post">
-    <input type="hidden" name="userId" value="<?php echo $data['user']['userId']; ?>">
-        <label>
-            Nom
-            <input type="text" name="name" value="<?php echo $data['user']['name']; ?>">
-        </label>
-        <label>
-            Courriel
-            <input type="email" name="email" value="<?php echo $data['user']['email']; ?>">
-        </label>
-        <label>
-            Date de naissance
-            <input type="date" name="birthday" value="<?php echo date_format(date_create($data['user']['birthday']),"Y-m-d") ?>">
-        </label>
-         <label>
-            Ville
-            <select name="userCityId">
-            <?php
-                foreach($data['city'] as $row){
-                ?>
-                <option value="<?php echo $row['cityId'];?>" <?php if($row['cityId']==$data['user']['userCityId']){ echo 'selected';}?>><?php echo $row['cityName'];?></option>
-                <?php
-                }
-                ?>
-            </select>
-        </label>
-        <input type="submit">
-    </form>
- 
+<?php
+    if(isset($data)){
+        foreach($data as $article){
+            // print_r($data);
+            ?>
+        <article>
+            <header>
+                <a href="?module=forum&action=view<?= "&id=". $article["id"]?>"><?= $article["titre"]?></a>
+            </header>
+            <div>
+                <span><a href="?module=user&action=view<?= "&id=". $article["userId"]?>"><?= $article["nom"]?></a></span>
+                <span><?= $article["date"]?></span>
+            </div>
+        </article>
+        <?php
+    }
+} 
+?>

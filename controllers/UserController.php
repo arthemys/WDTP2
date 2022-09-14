@@ -23,6 +23,13 @@ function user_controller_registerValidation(){
     render(VIEW_DIR.'/user/register.php', $erreur);
 }
 
+function user_controller_view(){
+    session_start();
+    require(MODEL_DIR.'/user.php');
+    $user = $_REQUEST["id"];
+    $articles = user_model_view($user);
+    render(VIEW_DIR.'/user/view.php', $articles);
+}
 
 // function user_controller_index(){
 //     require(MODEL_DIR.'/user.php');
