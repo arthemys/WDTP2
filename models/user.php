@@ -11,14 +11,13 @@ function user_model_list(){
 
 function user_model_authentification($login){
     require(CONNEX_DIR);
-    $erreurUsername = "Vérifier votre nom d'utilisateur";
-    $erreurPassword = "Mauvais mot de passe";
+    $erreurUsername = ["erreur" => "Vérifier votre nom d'utilisateur"];
+    $erreurPassword = ["erreur" => "Mauvais mot de passe"];
 
     foreach($login as $key=>$value){
         $$key=mysqli_real_escape_string($con,$value);
     }
-    $sql = "SELECT * FROM USERWDTP2 WHERE username = '$username'";
-
+    $sql = "SELECT * FROM userWDTP2 WHERE username = '$username'";
     $result = mysqli_query($con, $sql);
 
     //2 compter == 1
@@ -33,7 +32,8 @@ function user_model_authentification($login){
             header("Location: index.php");
         }
         else{
-            return $erreurPassword;
+            $erreur = array_merge($login, $erreurPassword);
+            return $erreur;
         }   
     }
     else{
@@ -67,7 +67,7 @@ function user_model_registerValidation($user){
             $erreur = true;
         }elseif($key == 'username'){
             $value = mysqli_real_escape_string($con,$value); 
-            $sql = "SELECT * FROM USERWDTP2 WHERE username = '$value'";
+            $sql = "SELECT * FROM userWDTP2 WHERE username = '$value'";
             $result = mysqli_query($con, $sql);
             $count = mysqli_num_rows($result);
             if($count > 0){
@@ -106,7 +106,7 @@ function user_model_insert($user){
         $$key=mysqli_real_escape_string($con,$value);
     }
     $password = password_hash($password, PASSWORD_BCRYPT);
-    $sql = "INSERT INTO USERWDTP2 VALUES (null, '$username','$password','$nom','$dateNaissance')";
+    $sql = "INSERT INTO userWDTP2 VALUES (null, '$username','$password','$nom','$dateNaissance')";
     mysqli_query($con, $sql);
     mysqli_close($con);
 }

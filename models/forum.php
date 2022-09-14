@@ -1,11 +1,13 @@
 <?php
     function forum_model_list(){
         require(CONNEX_DIR);
-        $sql = "SELECT forumWDTP2.id, titre, date, userId, nom FROM forumWDTP2 INNER JOIN userWDTP2 ON userId = userwdtp2.id";
-        $result = mysqli_query($con, $sql);
-        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
-        mysqli_close($con);
-        return $result;
+        $sql = "SELECT forumWDTP2.id, titre, date, userId, nom FROM forumWDTP2 INNER JOIN userWDTP2 ON userId = userWDTP2.id";
+        if(mysqli_query($con, $sql)){
+            $result = mysqli_query($con, $sql);
+            $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+            mysqli_close($con);
+            return $result;
+        }
     }
     function forum_model_insert($article){
         session_start();
@@ -37,4 +39,18 @@
             render(VIEW_DIR.'/user/connect.php');
         }
     }
+    function forum_model_view($id){
+        require(CONNEX_DIR);
+        $id = mysqli_real_escape_string($con,$id);
+        $sql = "SELECT * FROM forumWDTP2 INNER JOIN userWDTP2 ON userId = userWDTP2.id WHERE forumWDTP2.id = $id";
+        $result = mysqli_query($con, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if(count($result) === 1){
+            return $result;
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
+
 ?>

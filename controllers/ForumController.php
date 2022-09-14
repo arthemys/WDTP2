@@ -1,9 +1,10 @@
 <?php
 
 function forum_controller_view(){
-    // require(MODEL_DIR.'/user.php');
-    // $msg = user_model_authentification($_POST);
-    // render(VIEW_DIR.'/user/connect.php', $msg);
+    require(MODEL_DIR.'/forum.php');
+    $articleId = $_REQUEST["id"];
+    $article = forum_model_view($articleId);
+    render(VIEW_DIR.'/forum/article.php', $article);
 }
 function forum_controller_create(){
     session_start();
