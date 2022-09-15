@@ -31,4 +31,9 @@ function forum_controller_modifyArticle(){
     require(MODEL_DIR.'/forum.php');
     forum_model_modifyArticle($_POST);
 }
+function forum_controller_delete(){
+    require(MODEL_DIR.'/forum.php');
+    $article = $_REQUEST["id"];
+    forum_model_delete($article);
+}
 ?>

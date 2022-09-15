@@ -84,4 +84,20 @@
             header("Location: index.php");
         }
     }
+    function forum_model_delete($id){
+        session_start();
+        require(CONNEX_DIR);
+        $id = mysqli_real_escape_string($con,$id);
+        $sql = "SELECT * FROM forumWDTP2 where id = $id";
+        $result = mysqli_query($con, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if($result[0]["userId"] === $_SESSION["id"]){
+            $delete = "DELETE FROM forumWDTP2 WHERE id = '$id'";
+            mysqli_query($con, $delete);
+            header("Location: index.php");
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
 ?>
