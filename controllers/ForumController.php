@@ -21,4 +21,14 @@ function forum_controller_insert(){
     forum_model_insert($_POST);
 }
 
+function forum_controller_modify(){
+    require(MODEL_DIR.'/forum.php');
+    $article = $_REQUEST["id"];
+    $articleAModifier = forum_model_modify($article);
+    render(VIEW_DIR.'/forum/create.php',$articleAModifier);
+}
+function forum_controller_modifyArticle(){
+    require(MODEL_DIR.'/forum.php');
+    forum_model_modifyArticle($_POST);
+}
 ?>

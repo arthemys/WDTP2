@@ -53,4 +53,35 @@
         }
     }
 
+    function forum_model_modify($id){
+        session_start();
+        require(CONNEX_DIR);
+        $id = mysqli_real_escape_string($con,$id);
+        $sql = "SELECT forumWDTP2.id, titre, date, article, userId, nom FROM forumWDTP2 INNER JOIN userWDTP2 ON userId = userWDTP2.id WHERE forumWDTP2.id = $id";
+        $result = mysqli_query($con, $sql);
+        $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        if($_SESSION["id"] === $result[0]["userId"]){
+            return $result;
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
+
+    function forum_model_modifyArticle($article){
+        session_start();
+        require(CONNEX_DIR);
+        print_r($article);
+        foreach($article as $key=>$value){
+            $$key=mysqli_real_escape_string($con,$value);
+        }
+        if($_SESSION["id"]===$userId){
+            $sql = "UPDATE forumWDTP2 SET titre = '$titre', article = '$article' WHERE id = $id";
+            mysqli_query($con, $sql);
+            header("Location: index.php");
+        }
+        else{
+            header("Location: index.php");
+        }
+    }
 ?>

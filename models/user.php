@@ -125,32 +125,4 @@ function user_model_view($id){
         header("Location: index.php");
     }
 }
-
-
-
-
-
-
-
-
-
-function user_model_edit($request){
-    require(CONNEX_DIR);
-    foreach($request as $key=>$value){
-        $$key=mysqli_real_escape_string($con,$value);
-    }
-    $sql = "UPDATE user SET name = '$name', email = '$email', birthday = '$birthday', userCityId = '$userCityId' WHERE userId = '$userId'";
-    mysqli_query($con, $sql);
-    mysqli_close($con);
-}
-function user_model_delete($request){
-    require(CONNEX_DIR);
-    foreach($request as $key=>$value){
-        $$key=mysqli_real_escape_string($con,$value);
-    }
-    $sql = "DELETE FROM user WHERE userId = '$userId'";
-    mysqli_query($con, $sql);
-    mysqli_close($con);
-}
-
 ?>
