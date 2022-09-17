@@ -6,7 +6,7 @@
 <form action="?module=forum&action=insert" method="post">
 <?php } ?>
     <label>
-        Titre <span><?php if(isset($data["erreurTitre"])){echo $data["erreurTitre"];}?></span>
+        Titre <span class="erreur"><?php if(isset($data["erreurTitre"])){echo $data["erreurTitre"];}?></span>
         <input type="text" name="titre" value="<?php if($_REQUEST["action"] ==="modify"){echo $data[0]["titre"]; }?>" required>
     </label>
     <label for="article">Contenu</label>

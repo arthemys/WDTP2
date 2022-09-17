@@ -87,3 +87,6 @@ a {
   align-self: center;
   max-width: max-content;
 }
+.erreur {
+  color: red;
+}
