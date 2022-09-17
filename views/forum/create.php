@@ -9,9 +9,7 @@
         Titre <span><?php if(isset($data["erreurTitre"])){echo $data["erreurTitre"];}?></span>
         <input type="text" name="titre" value="<?php if($_REQUEST["action"] ==="modify"){echo $data[0]["titre"]; }?>" required>
     </label>
-    <label>
-        Contenu <span><?php if(isset($data["erreurArticle"])){echo $data["erreurArticle"];} ?></span>
-        <textarea name="article" cols="30" rows="10" required><?php if($_REQUEST["action"] ==="modify"){echo $data[0]["article"]; }?></textarea>
-    </label>
+    <label for="article">Contenu</label>
+    <textarea name="article" cols="107" rows="15" required id="article"><?php if($_REQUEST["action"] ==="modify"){echo $data[0]["article"]; }?></textarea>
     <input type="submit" value=<?php if($_REQUEST["action"] ==="modify"){echo "Modifier";}else{echo "Envoyer";}?>>
 </form>

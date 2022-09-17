@@ -1,11 +1,10 @@
 <?php
     if(isset($data)){
         foreach($data as $article){
-            // print_r($data);
             ?>
         <article>
             <header>
-                <a href="?module=forum&action=view&id=<?=$article["id"]?>"><?= $article["titre"]?></a>
+                <h2><a href="?module=forum&action=view&id=<?=$article["id"]?>"><?= $article["titre"]?></a></h2>
             </header>
             <div>
                 <span>Par <a href="?module=user&action=view&id=<?=$article["userId"]?>"><?= $article["nom"]?></a></span>

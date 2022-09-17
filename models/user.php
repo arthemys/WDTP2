@@ -118,7 +118,6 @@ function user_model_view($id){
     $result = mysqli_query($con, $sql);
     $result = mysqli_fetch_all($result, MYSQLI_ASSOC);
     if(count($result) !==0){
-        // print_r($result);
         return $result;
     }
     else{

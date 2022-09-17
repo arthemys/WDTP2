@@ -8,15 +8,11 @@
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
-    <!-- <ul class="navigation">
-      <li><a href="?module=user&action=index">Lister les utilisateurs</a></li>
-      <li><a href="?module=user&action=create">Saisir un utilisateur</a></li>
-    </ul> -->
     <nav class="navigation">
         <a href="index.php">Accueil</a>
         <?php if(isset($_SESSION["nom"])){
         ?>
-            Bonjour, <?= $_SESSION["nom"] ?>
+            <a href="?module=user&action=view&id=<?= $_SESSION["id"] ?>">Mes articles</a>
             <a href="?module=forum&action=create">Créer une publication</a>
             <a href="?module=user&action=deconnection">Déconnection</a>
         <?php

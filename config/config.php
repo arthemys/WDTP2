@@ -7,8 +7,4 @@ $config = array(
 'default_module' => 'base',
 'default_action' => 'index',
 );
-
-// module = controlleur
-
-//action = fonction dedans le controlleur
 ?>

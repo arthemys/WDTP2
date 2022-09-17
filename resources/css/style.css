@@ -1,50 +1,89 @@
-body{
-    margin:auto;
-    background: #D6EAF8;
-    font-family:sans-serif;
-    color: grey;
-  }
-  
-  
-  .container {
-    margin: 50px;
-  }
-  
-  table.listing {
-      border-spacing: 0px;
-      width: 80%;
-      border: 1px solid grey;
-  }
-  
-  table.listing th, table.listing td {
-      border: 1px solid grey;
-      height: 30px;
-      padding: 5px;
-  }
-  
-  input, select {
-    padding: 6px;
-    display:block;
-    margin: 5px;
-  }
-  
-  .navigation {
-  
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-end;
-    list-style: none;
-    margin: 0;
-    background: deepskyblue;
-  }
-  
-  .navigation a {
-    text-decoration: none;
-    display: block;
-    padding: 1em;
-    color: white;
-  }
-   
-  .navigation a:hover {
-    background: #1565C0;
-  }
+body {
+  margin: auto;
+  background: #dedfe0;
+  font-family: sans-serif;
+  color: grey;
+}
+
+.container {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 50px;
+  justify-content: center;
+}
+.container > * + * {
+  margin-top: 20px;
+  border-top: 1px solid black;
+}
+.container > article {
+  width: 100%;
+  padding: 10px;
+}
+
+input,
+select {
+  padding: 6px;
+  display: block;
+  margin: 5px;
+}
+a {
+  text-decoration: none;
+}
+.navigation {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  list-style: none;
+  margin: 0;
+  background: rgb(93, 0, 255);
+}
+
+.navigation :first-child {
+  margin-right: auto;
+}
+.navigation a {
+  display: block;
+  padding: 1em;
+  color: white;
+}
+
+.navigation a:hover {
+  background: #1565c0;
+}
+
+.article {
+  display: flex;
+  flex-flow: row wrap;
+  max-width: 50%;
+  /* border: 1px solid black; */
+  justify-content: center;
+}
+.article > header {
+  color: black;
+}
+.article > .content {
+  text-align: center;
+  width: 100%;
+  color: black;
+}
+
+.container form {
+  display: flex;
+  flex-flow: row wrap;
+  text-align: left;
+  border: 1px solid black;
+  max-width: 60%;
+  padding: 20px;
+  background-color: white;
+  border-radius: 20px;
+  justify-content: center;
+}
+.container form label,
+.container form input:not([type="date"]) {
+  width: 100%;
+  max-width: 105ch;
+}
+.container form input[type="submit"] {
+  align-self: center;
+  max-width: max-content;
+}
